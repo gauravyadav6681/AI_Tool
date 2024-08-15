@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nes.css/2.3.0/css/nes.min.css">
+    <script src="./contentForm.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #search_form
+{
+   position: absolute;
+   left: 25%;
+   top: 10%;
+   width: 50%;
+}
+    </style>
+</head>
+<body>
+    <div id="search_form" class="nes-container with-title">
+        <p class="title">Content Form</p>
+    
+        <div class="input">
+            <label>Class</label>
+            <select id="class-select" class="nes-input">
+                <option value="9">class 9</option>
+                <option value="10">class 10</option>
+                <option value="11">class 11</option>
+                <option value="12">class 12</option>
+            </select>
+        </div>
+    
+        <br />
+        <div class="input">
+            <label>Subject</label>
+            <select id="subject-select" class="nes-input">
+                <!-- Subject options will be populated dynamically -->
+            </select>
+        </div>
+    
+        <br />
+    
+        <div class="input">
+            <label>Topic</label>
+            <input type = "text" id = "topic-select" class="nes-input">
+        </div>
+    
+        <br />
+    
+        <div class="input">
+            <label>Qno</label>
+            <input type="text" id = "qno-select" class="nes-input">
+        </div>
+    
+        <br />
+
+    
+        <div class="input">
+            <button type="button" class="nes-btn" onclick="submitForm()">Submit</button>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById('class-select').addEventListener('change', function() {
+    const classValue = this.value;
+    const subjectSelect = document.getElementById('subject-select');
+
+    // Clear the current options
+    subjectSelect.innerHTML = '';
+
+    // Define subject options for class 9 and 10
+    const subjectsForClass9And10 = ['Science', 'Maths', 'English', 'Computer'];
+
+    // Define subject options for class 11 and 12
+    const subjectsForClass11And12 = ['Physics', 'Chemistry', 'Maths', 'English', 'Computer'];
+
+    let subjectsToAdd = [];
+
+    if (classValue === '9' || classValue === '10') {
+        subjectsToAdd = subjectsForClass9And10;
+    } else if (classValue === '11' || classValue === '12') {
+        subjectsToAdd = subjectsForClass11And12;
+    }
+
+    // Populate the subject dropdown with the appropriate options
+    subjectsToAdd.forEach(function(subject) {
+        const option = document.createElement('option');
+        option.value = subject.toLowerCase();
+        option.text = subject;
+        subjectSelect.appendChild(option);
+    });
+});
+
+// Trigger change event on page load to set initial subjects based on default class selection
+document.getElementById('class-select').dispatchEvent(new Event('change'));
+</script>
+</html>
+
+
+
